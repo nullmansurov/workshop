@@ -1,0 +1,270 @@
+/* ================= */
+/* === LIGHT THEME === */
+/* ================= */
+
+/* Gemini main container */
+.gemini-container {
+  background-color: #f8f9fa; /* Светлый фон */
+  border: 1px solid #dee2e6;  /* Светлая граница */
+  border-radius: 12px;
+  padding: 16px;
+  margin: 20px 0;
+  font-family: 'Montserrat', sans-serif;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Ослабленная тень */
+  transition: all 0.3s ease;
+}
+
+/* Block with the conversation history */
+.gemini-answer {
+  background-color: transparent; /* Наследует фон от родителя */
+  border-radius: 8px;
+  margin-bottom: 15px;
+  color: #212529; /* Темный текст */
+  font-size: 14px;
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Wrapper for the displayed assistant prompt */
+.gemini-assistant-prompt-display {
+  background: #eef2f7; /* Светло-голубой фон */
+  color: #495057;      /* Темно-серый текст */
+  border-left: 3px solid #b0c4de; /* Приглушенная синяя граница */
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-style: italic;
+  margin-bottom: 5px;
+}
+
+.gemini-assistant-prompt-display p {
+  margin: 0;
+}
+
+/* User's own message */
+.gemini-user-message {
+  background-color: #e7f5ff; /* Очень светлый синий */
+  padding: 10px 15px;
+  border-radius: 15px 15px 0 15px;
+  align-self: flex-end;
+  max-width: 80%;
+  color: #005a9e; /* Темно-синий текст */
+}
+
+.gemini-user-message p {
+  margin: 0;
+}
+
+/* Gemini's response item */
+.gemini-answer-item {
+  background-color: #f1f3f5; /* Светло-серый фон */
+  padding: 10px 15px;
+  border-radius: 15px 15px 15px 0;
+  align-self: flex-start;
+  max-width: 80%;
+}
+
+/* Follow-up area */
+.gemini-followup {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  border-top: 1px solid #dee2e6; /* Светлый разделитель */
+  padding-top: 15px;
+}
+
+/* Textarea for follow-up */
+.gemini-input {
+  flex-grow: 1;
+  box-sizing: border-box;
+  font-size: 14px;
+  padding: 10px;
+  border: 1px solid #ced4da; /* Светло-серая граница */
+  border-radius: 8px;
+  background-color: #ffffff; /* Белый фон */
+  color: #212529; /* Темный текст */
+  resize: vertical;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gemini-input:focus {
+  border-color: #0d8eff;
+  box-shadow: 0 0 0 2px rgba(13, 142, 255, 0.4);
+  outline: none;
+}
+
+/* Send button */
+.gemini-send {
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  background-color: #007BFF;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.gemini-send:hover {
+  background-color: #0056b3;
+}
+
+.gemini-send:active {
+  transform: scale(0.98);
+}
+
+/* Waiting/Error message styles */
+.gemini-waiting {
+  font-style: italic;
+  color: #6c757d; /* Приглушенный темный текст */
+}
+
+.gemini-error {
+  color: #721c24; /* Темно-красный текст */
+  font-weight: 600;
+  background-color: #f8d7da; /* Светло-красный фон */
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #f5c6cb;
+}
+
+
+/* === Context Menu styles (Light Theme) === */
+.gemini-context-menu {
+  position: absolute;
+  background-color: #ffffff; /* Белый фон */
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); /* Мягкая тень */
+  padding: 8px;
+  z-index: 10000;
+  border: 1px solid #dee2e6; /* Светлая граница */
+  
+  min-width: 250px;
+  max-width: 350px;
+  max-height: 80vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.gemini-context-menu-btn {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left;
+  margin: 0;
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #212529; /* Темный текст */
+  background-color: transparent;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.gemini-context-menu-btn:hover {
+  background-color: #e9ecef; /* Светло-серый фон при наведении */
+  color: #000000;
+}
+
+.gemini-menu-divider {
+  border: none;
+  border-top: 1px solid #dee2e6; /* Светлый разделитель */
+  margin: 8px 0;
+  flex-shrink: 0;
+}
+
+.gemini-menu-header {
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #6c757d; /* Приглушенный серый текст */
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+/* Assistant list */
+.gemini-context-assistants-list {
+  max-height: 300px;
+  overflow-y: auto;
+  flex-shrink: 1;
+}
+
+.gemini-context-assistant-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.gemini-context-assistant-item:hover {
+  background-color: #e9ecef; /* Светло-серый фон */
+}
+
+.gemini-assistant-name {
+  flex: 1;
+  margin-right: 8px;
+  font-weight: 500;
+  color: #212529; /* Темный текст */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Styles for the "more options" button and dropdown */
+.gemini-assistant-more-btn {
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  font-size: 18px;
+  color: #6c757d; /* Серый цвет иконки */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.gemini-assistant-more-btn:hover {
+  background-color: #dbe1e7; /* Светло-серый круг при наведении */
+}
+
+.gemini-assistant-dropdown {
+  position: absolute;
+  background-color: #ffffff; /* Белый фон */
+  border-radius: 6px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+  border: 1px solid #dee2e6;
+  z-index: 10001;
+  padding: 5px;
+  min-width: 120px;
+}
+
+.gemini-assistant-dropdown button {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  color: #212529; /* Темный текст */
+  font-size: 14px;
+}
+
+.gemini-assistant-dropdown button:hover {
+  background-color: #e9ecef; /* Светло-серый фон */
+}

@@ -1,0 +1,242 @@
+.custom-audio-player {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    padding: 15px 20px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    user-select: none;
+    width: 80%;
+    margin: 20px auto;
+}
+
+.custom-audio-player button {
+    background-color: #2980b9;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    outline: none;
+}
+
+.custom-audio-player button:focus,
+.custom-audio-player button:active {
+    outline: none;
+}
+
+.custom-audio-player .progress-container {
+    flex-grow: 1;
+    margin: 0 15px;
+    position: relative;
+    height: 8px;
+    background-color: #bdc3c7;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.custom-audio-player .progress-bar {
+    height: 100%;
+    background-color: #2980b9;
+    width: 0;
+}
+
+.custom-audio-player .time {
+    font-size: 14px;
+    color: #ecf0f1;
+}
+
+/* --- ВАШИ ОРИГИНАЛЬНЫЕ СТИЛИ для .floating-audio-controls (десктоп) --- */
+.floating-audio-controls {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1E1E1E;
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 0.5rem 1rem; /* 8px 16px */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    z-index: 300;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* 8px */
+    transition: all 0.3s ease-in-out;
+}
+
+.floating-audio-controls button {
+    background: #2D2D2D;
+    border: none;
+    color: #fff;
+    padding: 0.5rem 0.9rem; /* 8px 14.4px */
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    outline: none;
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.floating-audio-controls button:hover {
+    background: #7C90DB;
+}
+.floating-audio-controls button:active {
+    transform: scale(0.95);
+}
+
+.floating-audio-controls .fab-progress-container {
+    position: relative;
+    flex: 1;
+    height: 8px;
+    background: #444;
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.floating-audio-controls .fab-progress-bar {
+    height: 100%;
+    background: #7C90DB;
+    width: 0%;
+    border-radius: 4px;
+    transition: width 0.1s linear;
+}
+
+.floating-audio-controls .fab-time {
+    font-size: 12px;
+    color: #e0e0e0;
+}
+
+
+/* --- АДАПТАЦИЯ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ --- */
+
+@media (max-width: 768px) {
+    /* ВАШИ ОРИГИНАЛЬНЫЕ СТИЛИ для .custom-audio-player (768px) */
+    .custom-audio-player {
+        width: 95%;
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .custom-audio-player button {
+        padding: 4px 8px;
+        font-size: 12px;
+    }
+
+    .custom-audio-player .progress-container {
+        height: 6px;
+        margin: 0 10px;
+    }
+
+    .custom-audio-player .time {
+        font-size: 12px;
+    }
+
+    /* ИЗМЕНЕННЫЕ СТИЛИ для .floating-audio-controls (768px) - МНОГОРЯДНАЯ СТРУКТУРА */
+    .floating-audio-controls {
+        width: 90%;
+        max-width: 420px;
+        padding: 8px 10px;
+        bottom: 10px;
+        border-radius: 10px;
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.25);
+        
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        gap: 8px; /* Расстояние между рядами кнопок и между кнопками и таймлайном */
+    }
+
+    .floating-audio-controls button {
+        padding: 8px 10px;
+        min-width: auto;
+        height: 38px;
+        font-size: 14px;
+        border-radius: 6px;
+        
+        order: 1;
+        flex-grow: 1;
+        min-width: 60px;
+        flex-basis: auto;
+    }
+    .floating-audio-controls button:active {
+        transform: scale(0.92);
+    }
+
+    .floating-audio-controls .fab-progress-container {
+        order: 2; /* Идет после кнопок */
+        flex-grow: 1; /* Занимает всю доступную ширину */
+        flex-basis: 100%; /* Занимает всю ширину ряда */
+        height: 8px; /* Можно сделать чуть толще, если нужно */
+        margin: 0; /* Убираем внешние отступы, т.к. он один в ряду */
+    }
+
+    .floating-audio-controls .fab-time {
+        display: none; /* ИЗМЕНЕНО: Скрываем время на мобильных */
+    }
+}
+
+@media (max-width: 480px) {
+    /* ВАШИ ОРИГИНАЛЬНЫЕ СТИЛИ для .custom-audio-player (480px) */
+    .custom-audio-player {
+        width: 100%;
+        padding: 8px;
+        gap: 8px;
+    }
+
+    .custom-audio-player button {
+        padding: 4px 6px;
+        font-size: 10px;
+    }
+
+    .custom-audio-player .progress-container {
+        height: 5px;
+        margin: 0 5px;
+    }
+
+    .custom-audio-player .time {
+        font-size: 10px;
+    }
+
+    /* ИЗМЕНЕННЫЕ СТИЛИ для .floating-audio-controls (480px) - МНОГОРЯДНАЯ СТРУКТУРА */
+    .floating-audio-controls {
+        width: 90%;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 5px;
+        border-radius: 10px;
+        padding: 8px;
+        box-shadow: 0 -3px 10px rgba(0,0,0,0.2);
+        
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        gap: 6px; /* Расстояние между рядами кнопок и между кнопками и таймлайном */
+    }
+
+    .floating-audio-controls button {
+        padding: 8px 10px;
+        min-width: auto;
+        height: 36px;
+        font-size: 14px;
+        border-radius: 6px;
+        
+        order: 1;
+        flex-grow: 1;
+        min-width: 55px;
+        flex-basis: auto;
+    }
+
+    .floating-audio-controls .fab-progress-container {
+        order: 2; /* Идет после кнопок */
+        flex-grow: 1; /* Занимает всю доступную ширину */
+        flex-basis: 100%; /* Занимает всю ширину ряда */
+        height: 6px; /* Можно сделать чуть толще, например 8px */
+        margin: 0; /* Убираем внешние отступы, т.к. он один в ряду */
+    }
+
+    .floating-audio-controls .fab-time {
+        display: none; /* ИЗМЕНЕНО: Скрываем время на мобильных */
+    }
+}

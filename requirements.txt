@@ -1,0 +1,10 @@
+Flask
+Flask-Login
+Flask-SQLAlchemy
+Flask-WTF
+WTForms
+google-generativeai
+google-genai
+sortedcontainers
+requests
+pyngrok

@@ -1,0 +1,84 @@
+.visibility-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.visibility-modal {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.visibility-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.visibility-msg {
+  margin: 10px 0;
+  color: red;
+}
+
+.visibility-user-section {
+  margin-top: 20px;
+}
+
+.visibility-user-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 10px;
+}
+
+.visibility-role-label {
+  display: block;
+}
+
+.visibility-save-roles {
+  margin-top: 10px;
+}
+
+.visibility-toast-container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 10000;
+}
+
+.visibility-toast {
+  padding: 10px 15px;
+  border-radius: 4px;
+  color: white;
+  opacity: 1;
+  transition: opacity 0.5s ease-out;
+}
+
+.visibility-toast-hide {
+  opacity: 0;
+}
+
+.visibility-toast-success {
+  background-color: #28a745;
+}
+
+.visibility-toast-error {
+  background-color: #dc3545;
+}

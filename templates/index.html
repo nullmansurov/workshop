@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Workshop - Projects</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="js/icon.png">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="files/main/bootstrap.min.css">
+  <!-- jQuery UI CSS -->
+  <link rel="stylesheet" href="files/main/jquery-ui.css">
+  <!-- External stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="js/audio-player.css">
+  <link rel="stylesheet" href="js/mobile_styles.css">
+  <link rel="stylesheet" href="js/open_file.css">
+  <link rel="stylesheet" href="js/task.css">
+  <link rel="stylesheet" href="js/gemini.css">
+  <link rel="stylesheet" href="js/storage.css">
+  <link rel="stylesheet" href="files/wiki/styles.css">
+  <link rel="stylesheet" href="files/pomidoro/pomidoro.css">
+  <link rel="stylesheet" href="files/visibility/styles.css">
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+  <!-- Header -->
+  <div id="header">
+    <h4 id="main-header">Workshop - Library</h4>
+    <button id="toggle-theme" class="btn btn-light"><img src="js/theme.png" alt="Toggle theme" class="toolbar-icon"></button>
+    <button id="toggle-projects" class="btn btn-light">Projects</button>
+  </div>
+  <div class="container-fluid">
+    <div class="row no-gutters">
+      <!-- Projects panel -->
+      <div class="col-md-3" id="projects-list">
+        <input type="text" id="search-projects" placeholder="Search projects...">
+        <button id="new-project" class="btn btn-primary btn-block mb-2">New Project</button>
+        <div id="projects-container">
+          {% for project in projects %}
+            <div class="project-item" data-project="{{ project }}" data-fav="{{ project in favorites and '★' or '' }}">
+              <span class="proj-name">{{ project in favorites and '★ ' or '' }}{{ project }}</span>
+            </div>
+          {% endfor %}
+        </div>
+        <!-- "Load more" button for pagination -->
+        {% if has_more %}
+          <div id="load-more-container" class="text-center mt-2">
+            <button id="load_more" class="btn btn-secondary" type="button">Load More</button>
+          </div>
+        {% endif %}
+      </div>
+      <!-- Main editor area -->
+      <div class="col-md-9">
+        <!-- Editor toolbar -->
+       <!-- Toolbar for mobile and desktop devices -->
+      <div id="toolbar" class="toolbar-container">
+        <div class="toolbar-visible">
+          <button id="upload-btn" class="btn btn-info btn-sm">Upload</button>
+          <button id="record-btn" class="btn btn-secondary btn-sm">Record Audio</button>
+          <button id="photo-btn" class="btn btn-secondary btn-sm">Take Photo</button>
+        </div>
+        <div class="toolbar-visible-desktop">
+          <select id="font-size" class="btn btn-light btn-sm"></select>
+          <button class="format-btn btn btn-light btn-sm" data-command="bold"><b>B</b></button>
+          <button class="format-btn btn btn-light btn-sm" data-command="italic"><i>I</i></button>
+          <button class="format-btn btn btn-light btn-sm" data-command="underline"><u>U</u></button>
+          <select id="text-align" class="btn btn-light btn-sm">
+            <option value="left">←</option>
+            <option value="center">↔</option>
+            <option value="right">→</option>
+          </select>
+          <button id="insert-empty-para-btn" class="btn btn-light btn-sm toolbar-item" title="New paragraph at the end">New Paragraph</button>
+          <button id="task" class="btn btn-light btn-sm toolbar-item" title="Add task">Task</button>
+        </div>
+        <div class="toolbar-hidden">
+          <button id="clickable-text-btn" class="btn btn-light btn-sm" title="Copyable text">
+            <img src="js/copy.png" alt="Copyable" class="toolbar-icon">
+          </button>
+          <button id="link-btn" class="btn btn-light btn-sm" title="Add link">
+            <img src="js/link.png" class="toolbar-icon">
+          </button>
+          <button id="quote-btn" class="btn btn-light btn-sm" title="Quote">
+            <img src="js/quote.png" class="toolbar-icon">
+          </button>
+          <button id="video" class="btn btn-info btn-sm">Upload Video</button>
+          <button id="filepath" class="btn btn-info btn-sm">Attach File</button>
+          <button id="gemini" class="btn btn-light btn-sm toolbar-item" title="Ask Gemini a question">Gemini</button>
+          <button id="wikipedia" class="btn btn-light btn-sm toolbar-item" title="Search for information on Wikipedia">Search</button>
+          <button id="storage" class="btn btn-light btn-sm toolbar-item" title="Manage attached files">Storage</button>
+          <button id="iakor" class="btn btn-light btn-sm toolbar-item" title="Add headings">Anchor</button>
+          <button id="list-iakor" class="btn btn-light btn-sm toolbar-item">Chapters</button>
+          <button id="access" class="btn btn-info btn-sm">Access</button>
+          <button id="visibility" class="btn btn-info btn-sm">Visibility</button>
+          <button id="pomidoro" class="btn btn-info btn-sm">Pomodoro</button>
+        </div>
+
+        <button id="save" class="btn btn-success btn-sm">Save</button>
+          <!-- Unfold button for desktop -->
+          <button id="desktop-more" class="btn btn-light btn-sm">▼</button>
+
+          <!-- Unfold button for mobile devices -->
+          <button id="mobile-more" class="btn btn-light btn-sm">▼</button>
+      </div>
+
+        <!-- Editor -->
+        <br/>
+        <div id="editor-container">
+          <div id="editor" contenteditable="true" spellcheck="false"></div>
+          <div id="video-placeholder"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Context menu for projects -->
+  <div class="context-menu" id="context-menu">
+    <ul>
+      <li id="ctx-open">Open Project</li>
+      <li id="ctx-rename">Rename</li>
+      <li id="ctx-delete">Delete</li>
+      <li id="ctx-fav">Add to Favorites</li>
+    </ul>
+  </div>
+  <!-- Context menu for images -->
+  <div class="context-menu" id="img-context-menu">
+    <ul>
+      <li id="img-resize">Resize</li>
+      <li id="img-align-left">Align Left</li>
+      <li id="img-align-center">Center</li>
+      <li id="img-align-right">Align Right</li>
+    </ul>
+  </div>
+
+  <!-- Modal for camera -->
+  <div id="camera-modal">
+    <div style="background:#fff; padding:20px; border-radius:5px; text-align:center;">
+      <video id="video-preview" autoplay style="max-width:100%;"></video><br>
+      <button id="flip-camera-btn" class="btn btn-info">Flip Camera</button>
+      <button id="capture-btn" class="btn btn-primary">Take Photo</button>
+      <button id="cancel-capture-btn" class="btn btn-secondary">Cancel</button>
+    </div>
+  </div>
+
+
+  <!-- Upload progress bar -->
+  <div id="upload-progress" style="position:fixed; top:10px; right:10px; width:200px; display:none; z-index:4000;">
+    <div class="progress">
+      <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+  </div>
+
+  <!-- Modal for sharing access -->
+<div class="modal fade" id="accessModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" id="modalContent">
+      <!-- Content will be inserted via JS -->
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal" tabindex="-1" id="anchor-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Select Anchor</h5>
+        <!-- Unique close button -->
+        <button type="button" class="btn-close" id="anchor-modal-close" aria-label="Close">x</button>
+      </div>
+      <div class="modal-body">
+        <ul id="anchor-list-modal">
+          <!-- Anchors will be added here -->
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <!-- Hidden inputs for file uploads -->
+  <input type="file" id="upload-file" style="display:none;">
+  <input type="file" accept="audio/*" capture="microphone" id="capture-audio" style="display:none;">
+  <input type="file" accept="image/*" capture="camera" id="capture-photo" style="display:none;">
+
+  <!-- Include jQuery and jQuery UI -->
+  <script src="files/main/jquery-3.5.1.min.js"></script>
+  <script src="files/main/jquery-ui.min.js"></script>
+
+  <!-- Include Bootstrap JS (after jQuery) -->
+  <script src="files/main/bootstrap.bundle.min.js"></script>
+  
+  <!-- Include our JS files -->
+  <script src="js/projects.js"></script>
+  <script src="js/upload.js"></script>
+  <script src="js/camera.js"></script>
+  <script src="js/toolbar.js"></script>
+  <script src="js/image-context.js"></script>
+  <script src="js/dark_theme.js"></script>
+  <script src="js/mobile_scripts.js"></script>
+  <script src="js/audio-player.js"></script>
+  <script src="js/playerjs.js"></script>
+  <script src="js/video.js"></script>
+  <script src="js/open_file.js"></script>
+  <script src="js/task.js"></script>
+  <script src="js/gemini.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="files/acess/acess.js"></script>
+  <script src="files/main/fuse.min.js"></script>
+  <script src="files/wiki/script.js"></script>
+  <script src="files/glav/script.js"></script>
+  <script src="files/pomidoro/pomidoro.js"></script>
+  <script src="files/visibility/script.js"></script>
+  <script>
+    function loadMore() {
+      // The current page is passed by the server as current_page
+      const currentPage = {{ current_page }};
+      window.location.href = '/?page=' + (currentPage + 1);
+    }
+  </script>
+
+</body>
+</html>
